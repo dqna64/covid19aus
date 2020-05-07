@@ -1,0 +1,592 @@
+const monthIdx = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const statesOrder = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"];
+const regionsOrder = [
+  "ACT",
+  "NSW",
+  "NT",
+  "QLD",
+  "SA",
+  "TAS",
+  "VIC",
+  "WA",
+  "AUS",
+];
+
+const colors = {
+  confirmed: "rgba(188, 223, 245, 1)",
+  confirmedAlpha: "rgba(188, 223, 245, 0.5)",
+  recoveries: "rgba(188, 245, 224, 1)",
+  recoveriesAlpha: "rgba(188, 245, 224, 0.5)",
+  deaths: "rgba(245, 188, 188, 1)",
+  deathsAlpha: "rgba(245, 188, 188, 0.5)",
+};
+
+function isFloat(n) {
+  return Number(n) === n && n % 1 !== 0;
+}
+
+function lastItem(array) {
+  return array[array.length - 1];
+}
+
+function translateCodeToName(fullStateName) {
+  if (fullStateName === "ACT") {
+    return "Australian Capital Territory";
+  } else if (fullStateName === "NSW") {
+    return "New South Wales";
+  } else if (fullStateName === "NT") {
+    return "Northern Territory";
+  } else if (fullStateName === "QLD") {
+    return "Queensland";
+  } else if (fullStateName === "SA") {
+    return "South Australia";
+  } else if (fullStateName === "TAS") {
+    return "Tasmania";
+  } else if (fullStateName === "VIC") {
+    return "Victoria";
+  } else if (fullStateName === "WA") {
+    return "Western Australia";
+  }
+}
+
+function translateNameToCode(fullStateName) {
+  if (fullStateName === "Australian Capital Territory") {
+    return "ACT";
+  } else if (fullStateName === "New South Wales") {
+    return "NSW";
+  } else if (fullStateName === "Northern Territory") {
+    return "NT";
+  } else if (fullStateName === "Queensland") {
+    return "QLD";
+  } else if (fullStateName === "South Australia") {
+    return "SA";
+  } else if (fullStateName === "Tasmania") {
+    return "TAS";
+  } else if (fullStateName === "Victoria") {
+    return "VIC";
+  } else if (fullStateName === "Western Australia") {
+    return "WA";
+  }
+}
+
+function formatDates(rawDates) {
+  let datesFormatted = [];
+  for (let i = 0; i < rawDates.length; i++) {
+    let dateArray = rawDates[i].split("/");
+    const month = monthIdx[parseInt(dateArray[0]) - 1];
+    datesFormatted.push(dateArray[1] + " " + month + " " + "20" + dateArray[2]); // e.g. "Jan 25 2020"
+  }
+  return datesFormatted;
+}
+
+function formatDateForDisplay(date) {
+  let dateArray = date.split(" ");
+  if (dateArray[0] == "1") {
+    // If date is 1st of the month
+    return date;
+  } else {
+    return "";
+  }
+}
+
+async function getTotals(url) {
+  const response = await fetch(url);
+  const data = await response.text();
+  const rows = data.split("\n");
+  const dates = rows[0].split(",").slice(4);
+  const regions = {};
+  rows.slice(1).forEach((row) => {
+    // For each state
+    const rowArray = row.split(",");
+    const state = translateNameToCode(rowArray[0]);
+    const stateValues = rowArray.slice(4).map((num) => parseInt(num));
+    regions[state] = stateValues;
+  });
+  let nationalValues = [];
+  for (let i = 0; i < dates.length; i++) {
+    // number of days
+    let dailyTotal = 0;
+    for (let j = 0; j < statesOrder.length; j++) {
+      // 8 states
+      dailyTotal += regions[statesOrder[j]][i];
+    }
+    nationalValues.push(dailyTotal);
+  }
+  regions["AUS"] = nationalValues;
+  return { dates, regions };
+}
+
+function getNews(totalsData) {
+  let dates = totalsData.dates;
+  let regions = {};
+  for (let i = 0; i < regionsOrder.length; i++) {
+    let regionTotals = [...totalsData.regions[regionsOrder[i]]]; // BECAREFUL the unshift modifies array inplace, make deep copy
+    let regionNews = [];
+    regionTotals.unshift(0); // Assume day 0 had no cases total
+    for (let i = 1; i < regionTotals.length; i++) {
+      // Start with day1Totals - day0Totals
+      regionNews.push(regionTotals[i] - regionTotals[i - 1]);
+    }
+    regions[regionsOrder[i]] = regionNews;
+  }
+
+  return { dates, regions };
+}
+
+async function getAllData() {
+  let totalConfirmedData = await getTotals("aus-confirmed-csse.csv");
+  let newConfirmedData = getNews(totalConfirmedData);
+  let totalRecoveredData = await getTotals("aus-recovered-csse.csv");
+  let newRecoveredData = getNews(totalRecoveredData);
+  let totalDeathsData = await getTotals("aus-deaths-csse.csv");
+  let newDeathsData = getNews(totalDeathsData);
+  let totalActiveData = calculateActiveCasesData(
+    totalConfirmedData.dates,
+    totalConfirmedData.regions,
+    totalRecoveredData.regions,
+    totalDeathsData.regions
+  );
+  let newActiveData = getNews(totalActiveData);
+
+  return {
+    totalConfirmedData,
+    newConfirmedData,
+    totalRecoveredData,
+    newRecoveredData,
+    totalDeathsData,
+    newDeathsData,
+    totalActiveData,
+    newActiveData,
+  };
+}
+
+function calculateActiveCasesData(
+  dates,
+  confirmedRegionsValues,
+  recoveredRegionsValues,
+  deathsRegionsValues
+) {
+  let regions = {};
+  for (let i = 0; i < regionsOrder.length; i++) {
+    // 9 regions
+    let regionActive = []; // Values for a single state over time
+    for (let j = 0; j < dates.length; j++) {
+      // Each date
+      let totalActive =
+        confirmedRegionsValues[regionsOrder[i]][j] -
+        recoveredRegionsValues[regionsOrder[i]][j] -
+        deathsRegionsValues[regionsOrder[i]][j];
+      regionActive.push(totalActive);
+    }
+    regions[regionsOrder[i]] = regionActive; // Push this particular regions's active values over time to the array of all regions
+  }
+  return { dates, regions };
+}
+
+async function makeChart0(caseLabels, caseValues) {
+  let data = {
+    labels: caseLabels,
+    datasets: [
+      {
+        data: caseValues,
+        borderColor: "rgba(230, 230, 230,1)",
+        backgroundColor: [
+          colors.confirmedAlpha,
+          colors.recoveriesAlpha,
+          colors.deathsAlpha,
+        ],
+      },
+    ],
+  };
+  let options = {
+    legend: {
+      labels: {
+        fontColor: "rgba(217, 217, 217,1)",
+      },
+      position: "top",
+    },
+  };
+
+  const pie_chart_current_stats = document
+    .getElementById("pie-chart-current-stats")
+    .getContext("2d");
+  const chart0 = new Chart(pie_chart_current_stats, {
+    type: "doughnut",
+    data: data,
+    options: options,
+  });
+}
+
+async function makeChart1(timeLabels, caseValues, newCaseValues) {
+  let data = {
+    labels: timeLabels,
+    datasets: [
+      {
+        label: "Total Confirmed Cases",
+        data: caseValues,
+        yAxisID: "Total Confirmed Cases",
+        order: 2,
+
+        borderColor: "rgba(173, 237, 227, 1)",
+        pointBackgroundColor: "rgba(68, 201, 201, 0.5)",
+        pointBorderColor: "rgba(173, 237, 227, 1)",
+        pointBorderWidth: 1,
+        pointRadius: 3,
+      },
+      {
+        label: "New Confirmed Cases",
+        data: newCaseValues,
+        type: "bar",
+        yAxisID: "New Confirmed Cases",
+        order: 1,
+
+        backgroundColor: "rgba(173, 217, 237, 0.3)",
+        borderColor: "rgba(173, 217, 237, 0.9)",
+        borderWidth: 1,
+        barPercentage: 1.0,
+        categoryPercentage: 1.1,
+      },
+    ],
+  };
+  let options = {
+    scales: {
+      yAxes: [
+        {
+          id: "Total Confirmed Cases",
+          // type: "linear",
+          position: "left",
+          ticks: {
+            fontColor: "rgba(173, 237, 227, 1)",
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Total Confirmed Cases",
+            fontColor: "rgba(173, 237, 227, 1)",
+          },
+        },
+        {
+          id: "New Confirmed Cases",
+          // type: "bar",
+          position: "right",
+          ticks: {
+            fontColor: "rgba(173, 217, 237,1)",
+            suggestedMax: 700,
+            min: 0,
+          },
+          gridLines: { color: "rgba(0,0,0,0)" },
+          scaleLabel: {
+            display: true,
+            labelString: "New Confirmed Cases",
+            fontColor: "rgba(173, 217, 237, 1)",
+          },
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            autoSkip: false,
+            fontColor: "rgba(217, 217, 217,1)",
+            callback: (value, index, values) => {
+              return formatDateForDisplay(value);
+            },
+            min: "18 Feb 2020",
+            minRotation: 0,
+            maxRotation: 0,
+          },
+        },
+      ],
+    },
+    legend: {
+      labels: {
+        fontColor: "rgba(217, 217, 217,1)",
+      },
+      reverse: true,
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+      },
+    },
+    tooltips: {
+      mode: "index",
+      axis: "x",
+    },
+  };
+  const time_series_total_confirmed = document
+    .getElementById("time-series-total-confirmed")
+    .getContext("2d");
+  const chart1 = new Chart(time_series_total_confirmed, {
+    type: "line",
+    data: data,
+    options: options,
+  });
+}
+
+async function makeChart2(
+  timeLabels,
+  activeCasesValues,
+  recoveriesValues,
+  deathsValues
+) {
+  let data = {
+    labels: timeLabels,
+    datasets: [
+      {
+        label: "Active",
+        data: activeCasesValues,
+        yAxisID: "Stack1",
+
+        backgroundColor: colors.confirmedAlpha,
+        borderColor: colors.confirmed,
+        borderWidth: 1,
+        barPercentage: 1.0,
+        categoryPercentage: 1.0,
+      },
+      {
+        label: "Recoveries",
+        data: recoveriesValues,
+        yAxisID: "Stack1",
+
+        backgroundColor: colors.recoveriesAlpha,
+        borderColor: colors.recoveries,
+        borderWidth: 1,
+        barPercentage: 1.0,
+        categoryPercentage: 1.0,
+      },
+      {
+        label: "Deaths",
+        data: deathsValues,
+        yAxisID: "Stack1",
+
+        backgroundColor: colors.deathsAlpha,
+        borderColor: colors.deaths,
+        borderWidth: 1,
+        barPercentage: 1.0,
+        categoryPercentage: 1.0,
+      },
+    ],
+  };
+  let options = {
+    scales: {
+      yAxes: [
+        {
+          id: "Stack1",
+          ticks: {
+            fontColor: "rgba(173, 237, 227, 1)",
+          },
+          stacked: true,
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            autoSkip: false,
+            fontColor: "rgba(217, 217, 217,1)",
+            callback: (value, index, values) => {
+              return formatDateForDisplay(value);
+            },
+            min: "18 Feb 2020",
+            minRotation: 0,
+            maxRotation: 0,
+          },
+          stacked: true,
+        },
+      ],
+    },
+    legend: {
+      labels: {
+        fontColor: "rgba(217, 217, 217,1)",
+      },
+      reverse: false,
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+      },
+    },
+    tooltips: {
+      mode: "index",
+      axis: "x",
+    },
+  };
+  const time_series_split_stats = document
+    .getElementById("time-series-split-stats")
+    .getContext("2d");
+  const chart1 = new Chart(time_series_split_stats, {
+    type: "bar",
+    data: data,
+    options: options,
+  });
+}
+
+async function makeChart3(timeLabels, growthRateValues) {
+  let data = {
+    labels: timeLabels,
+    datasets: [
+      {
+        label: "Growth Rate",
+        data: growthRateValues,
+        yAxisID: "growthRate",
+        order: 2,
+
+        borderColor: "rgba(173, 237, 227, 1)",
+        pointBackgroundColor: "rgba(68, 201, 201, 0.3)",
+        pointBorderColor: "rgba(173, 237, 227, 1)",
+        pointBorderWidth: 1,
+        pointRadius: 3,
+      },
+    ],
+  };
+  let options = {
+    scales: {
+      yAxes: [
+        {
+          id: "growthRate",
+          // type: "linear",
+          position: "left",
+          ticks: {
+            fontColor: "rgba(173, 237, 227, 1)",
+          },
+          scaleLabel: {
+            display: false,
+            labelString: "Growth Rate",
+            fontColor: "rgba(173, 237, 227, 1)",
+          },
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            autoSkip: false,
+            fontColor: "rgba(217, 217, 217,1)",
+            callback: (value, index, values) => {
+              return formatDateForDisplay(value);
+            },
+            min: "18 Feb 2020",
+            minRotation: 0,
+            maxRotation: 0,
+          },
+        },
+      ],
+    },
+    legend: {
+      labels: {
+        fontColor: "rgba(217, 217, 217,1)",
+      },
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+      },
+    },
+    tooltips: {
+      mode: "index",
+      axis: "x",
+    },
+  };
+  const time_series_growth_factor = document
+    .getElementById("time-series-growth-factor")
+    .getContext("2d");
+  const chart3 = new Chart(time_series_growth_factor, {
+    type: "line",
+    data: data,
+    options: options,
+  });
+}
+
+function makeTable1(confirmedCasesData, recoveriesData, deathsData) {
+  for (let i = 0; i < statesOrder.length; i++) {
+    // 8 states
+    const cell_confirmed_cases = document.getElementById(
+      translate(statesOrder[i]) + "-confirmed-cases"
+    );
+    cell_confirmed_cases.innerText = lastItem(
+      confirmedCasesData.statesValues[i]
+    );
+
+    const cell_recoveries = document.getElementById(
+      translate(statesOrder[i]) + "-recoveries"
+    );
+    cell_recoveries.innerText = lastItem(recoveriesData.statesValues[i]);
+
+    const cell_deaths = document.getElementById(
+      translate(statesOrder[i]) + "-deaths"
+    );
+    cell_deaths.innerText = lastItem(deathsData.statesValues[i]);
+  }
+}
+
+async function run() {
+  let data = await getAllData();
+  console.log("Data Object:", data);
+
+  const currentTotalLabels = ["Active", "Recovered", "Deaths"];
+  const currentTotalValues = [
+    lastItem(data.totalActiveData.regions.AUS),
+    lastItem(data.totalRecoveredData.regions.AUS),
+    lastItem(data.totalDeathsData.regions.AUS),
+  ];
+  await makeChart0(currentTotalLabels, currentTotalValues);
+
+  await makeChart1(
+    formatDates(data.totalConfirmedData.dates),
+    data.totalConfirmedData.regions.AUS,
+    data.newConfirmedData.regions.AUS
+  );
+
+  await makeChart2(
+    formatDates(data.totalConfirmedData.dates),
+    data.totalActiveData.regeions.AUS,
+    data.totalRecoveredData.regions.AUS,
+    data.totalDeathsData.regions.AUS
+  );
+
+  let fiveDayAvgs = [];
+  for (let i = 5; i < data.newConfirmedData.regions.AUS.length; i++) {
+    let fiveDayAvg = data.newConfirmedCasesValues
+      .slice(i - 5, i)
+      .reduce((a, b) => a + b, 0);
+    fiveDayAvgs.push(fiveDayAvg);
+  }
+  let growthRateValues = [];
+  for (let i = 1; i < fiveDayAvgs.length; i++) {
+    if (fiveDayAvgs[i - 1] === 0) {
+      growthRateValues.push(0);
+    } else {
+      let growthRate = fiveDayAvgs[i] / fiveDayAvgs[i - 1];
+      growthRateValues.push(growthRate.toFixed(3));
+    }
+  }
+  await makeChart3(
+    formatDates(data.confirmedCasesData.dates.slice(5)),
+    growthRateValues
+  );
+
+  makeTable1(data.confirmedCasesData, data.recoveriesData, data.deathsData);
+}
+
+// Chart.defaults.global.tooltips = true;
+run();
