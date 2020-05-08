@@ -318,7 +318,7 @@ async function getNewTestsData(source, url) {
       } else {
         newTestsObject[date] = 1;
       }
-      console.log(`${i + 1}/${records.length}`);
+      // console.log(`${i + 1}/${records.length}`);
     }
     let dates = [];
     let regions = {};
