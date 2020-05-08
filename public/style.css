@@ -37,6 +37,7 @@ header {
   /* justify-content: space-between; */
   /* margin-left: 5vw; */
   min-width: 285px;
+  text-decoration: none;
 }
 .logo {
   /* margin: auto auto auto 0; */
