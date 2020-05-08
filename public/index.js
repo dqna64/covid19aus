@@ -806,6 +806,14 @@ function updateTime() {
 
 $(document).ready(function () {
   const scrollTime = 700;
+  $(".logo-container").click(function () {
+    $("html").animate(
+      {
+        scrollTop: $("#overview-container").offset().top,
+      },
+      scrollTime
+    );
+  });
   $("#overview-link").click(function () {
     $("html").animate(
       {
