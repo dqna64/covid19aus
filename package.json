@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "auto": "nodemon app.js",
-    "serve": "node app.js",
-    "start": "node app.js"
+    "dev": "node server_dev.js",
+    "prod": "node server_prod.js",
+    "start": "node server_prod.js"
   },
   "keywords": [
     "COVID19",
