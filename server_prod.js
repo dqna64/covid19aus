@@ -67,7 +67,7 @@ app.get("/api/data", async (req, res) => {
     res.json(data);
   } catch (err) {
     console.error(err);
-    res.json({ message: "error" });
+    res.json({ message: "Error in sending data" });
   }
 });
 

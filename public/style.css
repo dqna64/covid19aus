@@ -32,11 +32,11 @@ header {
 }
 
 .logo-container {
-  /* background-color: magenta; */
+  background-color: magenta;
   display: flex;
   /* justify-content: space-between; */
   /* margin-left: 5vw; */
-  min-width: 260px;
+  min-width: 285px;
 }
 .logo {
   /* margin: auto auto auto 0; */

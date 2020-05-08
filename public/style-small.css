@@ -3,7 +3,7 @@
     width: 98%;
   }
   .logo-container {
-    min-width: 0px;
+    min-width: 210px;
   }
   .logo {
     width: 2.1rem; /*Smaller than height of header*/
@@ -20,6 +20,9 @@
   .nav-links {
     justify-content: space-evenly;
     font-size: 0.7rem;
+  }
+  #overview-link {
+    display: none;
   }
   #timeline-link {
     display: none;
