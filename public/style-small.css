@@ -7,6 +7,7 @@
   }
   .logo {
     width: 2.1rem; /*Smaller than height of header*/
+    height: 2.1rem; /*Smaller than height of header*/
   }
   .logo-title {
     font-size: 1rem;

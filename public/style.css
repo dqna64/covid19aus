@@ -41,6 +41,7 @@ header {
 .logo {
   /* margin: auto auto auto 0; */
   width: 2.2rem; /*Smaller than height of header*/
+  height: 2.2rem; /*Smaller than height of header*/
   /* width: 6vh;
   height: 6vh; */
 }
