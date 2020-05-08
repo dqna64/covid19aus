@@ -32,7 +32,7 @@ header {
 }
 
 .logo-container {
-  background-color: magenta;
+  /* background-color: magenta; */
   display: flex;
   /* justify-content: space-between; */
   /* margin-left: 5vw; */
