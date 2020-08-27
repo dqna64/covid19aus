@@ -55,6 +55,7 @@ const flightEntriesToUpdate = []; // 'domestic', 'international'
 
 // Request for the data object
 app.get("/api/data", async (req, res) => {
+  // Let's hope this is only evoked after the data object has been initialised (shouldn't take too long)
   console.log("A GET request for the data has been received!");
   try {
     console.log("Sending data.");

@@ -1,5 +1,8 @@
 // const port = process.env.PORT || 4000;
 
+const csse_commits_url =
+  "https://api.github.com/repos/CSSEGISandData/COVID-19/commits?path=csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
+
 const timeSeriesUrls = {
   // local: {
   //   confirmed: `http://localhost:${port}/local/aus-confirmed-csse.csv`,
@@ -43,6 +46,7 @@ const { getFlightData } = require("./flight-data-scraper");
 const { TimeSerie } = require("./models/TimeSerie");
 const { CaseColumn } = require("./models/CaseColumn");
 const { DomesticEntry, InternationalEntry } = require("./models/FlightEntry");
+const { UpdateLogSch } = require("./models/UpdateLog");
 
 // Connect to database (cluster0)
 // mongoose.connect(
@@ -58,6 +62,7 @@ async function updateSpecified(
   caseColumnsToUpdate,
   flightEntriesToUpdate
 ) {
+  await updateLastUpdatedTime(csse_commits_url);
   await updateTimeSeries("web", timeSeriesToUpdate);
   await updateCaseColumns(caseColumnsToUpdate, 590);
   await updateFlightEntries(flightEntriesToUpdate);
@@ -65,6 +70,28 @@ async function updateSpecified(
 }
 
 //// Update database functions
+
+// Update updateLog
+async function updateLastUpdatedTime(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  lastUpdateTime = data[0].commit.committer.date;
+  let updateLog = await UpdateLogSch.findOne();
+  if (updateLog === null) {
+    updateLog = new UpdateLogSch({
+      attribute: "tada",
+      times: [],
+    });
+    await updateLog.save();
+  }
+  try {
+    updateLog.times.push(lastUpdateTime);
+    await updateLog.save();
+  } catch (err) {
+    console.error(err);
+    console.log(`Failed to update updateLog`);
+  }
+}
 
 // Update timeSeries
 async function updateTimeSeries(source, miniAttributes) {
@@ -83,7 +110,7 @@ async function updateTimeSeries(source, miniAttributes) {
           dates: [],
           regions: {},
         });
-        await caseColumn.save();
+        await timeSerie.save();
       }
       const currentSize = timeSerie.dates.length;
       console.log(

@@ -4,6 +4,7 @@ const fetch = require("node-fetch");
 const { TimeSerie } = require("./models/TimeSerie");
 const { CaseColumn } = require("./models/CaseColumn");
 const { DomesticEntry, InternationalEntry } = require("./models/FlightEntry");
+const { UpdateLogSch } = require("./models/UpdateLog");
 
 // Update the data object
 async function updateDataObject(source, attributes) {
@@ -108,6 +109,7 @@ async function getAllDataFromMongoDb(attributes) {
   let sourceData = await CaseColumn.findOne({
     attribute: attributes.sourceData,
   });
+  let updateLogData = await UpdateLogSch.findOne();
 
   return {
     totalConfirmedData,
@@ -123,6 +125,7 @@ async function getAllDataFromMongoDb(attributes) {
     geoData,
     ageData,
     sourceData,
+    updateLogData,
   };
 }
 

@@ -569,8 +569,27 @@ function makeChart5(sourceData) {
       labels.push(key);
       values.push(sourceData.summaries[key]);
     });
-  labels[1] = "Locally acquired from unknown";
-  labels[2] = "Locally acquired from confirmed";
+  // labels[1] = "Locally acquired from unknown";
+  // labels[2] = "Locally acquired from known";
+  let unknownLocalSourceIdx = labels.indexOf(
+    "Locally acquired - contact not yet identified"
+  );
+  labels[unknownLocalSourceIdx] = "Locally acquired from unknown";
+  labels[
+    labels.indexOf(
+      "Locally acquired - contact of a confirmed case and/or in a known cluster"
+    )
+  ] = "Locally acquired from known case";
+  for (let i = labels.length - 1; i >= 0; i--) {
+    if (
+      labels[i] == "Locally acquired - source not identified" ||
+      labels[i] == "Under investigation"
+    ) {
+      labels.splice(i, 1);
+      values[unknownLocalSourceIdx] += values[i];
+      values.splice(i, 1);
+    }
+  }
 
   let data = {
     labels: labels,
@@ -719,12 +738,15 @@ function makeChart6(ageData) {
 }
 
 async function run() {
-  // All functions here run synchronously bc doesnt rlly matter which chart gets loaded first
+  // All functions here run synchronously bc doesnt rlly matter which chart gets loaded first, as long as data object is complete
   const response = await fetch("/api/data");
   const data = await response.json();
   console.log("Here is the data object:", data);
   let time = updateTime();
   console.log("The current date is:", time);
+  let lastUpdateTime = processISO8610Time(
+    data.updateLogData.times[data.updateLogData.times.length - 1]
+  );
 
   const currentTotalFields = {
     confirmed: lastItem(data.totalConfirmedData.regions.AUS),
@@ -784,7 +806,10 @@ async function run() {
   );
 
   makeTable1(data);
-  $("#currentTime").text(time);
+  $("#lastUpdated").text(lastUpdateTime);
+  $("#lastDataDate").text(
+    formatDateForDisplay(lastItem(data.totalConfirmedData.dates))
+  );
 
   makeMap1(data.geoData);
 
@@ -792,7 +817,7 @@ async function run() {
 
   makeChart6(data.ageData);
 
-  setInterval(updateTime, 1000); // Update every 30 seconds
+  setInterval(updateTime, 1000); // Update every 1 seconds
 }
 
 // Chart.defaults.global.tooltips = true;
@@ -802,6 +827,15 @@ function updateTime() {
   let time = new Date();
   $(".date").text(time.toLocaleString());
   return time;
+}
+
+function processISO8610Time(raw) {
+  // raw = "2020-08-27T04:50:45Z"
+  let [date, time] = raw.split("T"); // ["2020-08-27", "04:50:45Z"]
+  time = time.substring(0, time.length - 1); // "04:50:45"
+  let [YYYY, MM, DD] = date.split("-"); // ["2020", "08", "27"]
+  // let [hr, min, sec] = time.split(":") // ["04", "50", "45"]
+  return `${DD}/${MM}/${YYYY}, ${time} UTC`;
 }
 
 $(document).ready(function () {
