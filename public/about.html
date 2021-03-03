@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="Real-time COVID-19 statistics and trends in Australia. Latest reports covid19 coronavirus information, stats, graphs, charts for Sydney New South Wales, Melbourne Victoria, Queensland, South Australia, Western Australia, Northen Territory, Tasmania, ACT"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="icon"
+      href="images/security_shield_protect_virus_coronavirus.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style-small.css" />
+
+    <title>
+      COVID-19 Australia: Real-time coronavirus statistics and trends
+    </title>
+  </head>
+
+  <body>
+    <header class="sticky">
+      <div class="header-container">
+        <a class="logo-container" href="/">
+          <img
+            width="50"
+            src="images/security_shield_protect_virus_coronavirus.ico"
+            alt="logo"
+            class="logo"
+          />
+          <h1 class="logo-title">COVID-19 Australia</h1>
+        </a>
+        <nav class="nav-container">
+          <ul class="nav-links">
+            <div class="nav-link-box">
+              <a
+                class="nav-link"
+                id="overview-link"
+                href="/index.html#overview-container"
+                >Overview</a
+              >
+            </div>
+            <div class="nav-link-box">
+              <a
+                class="nav-link"
+                id="timeline-link"
+                href="/index.html#timeline-container"
+                >Timeline</a
+              >
+            </div>
+            <div class="nav-link-box">
+              <a
+                class="nav-link"
+                id="states-link"
+                href="/index.html#states-container"
+                >States</a
+              >
+            </div>
+            <div class="nav-link-box">
+              <a
+                class="nav-link"
+                id="origins-link"
+                href="/index.html#origins-container"
+                >Origins</a
+              >
+            </div>
+            <div class="nav-link-box">
+              <a
+                class="nav-link"
+                id="demographics-link"
+                href="/index.html#demographics-container"
+                >Demographics</a
+              >
+            </div>
+            <div class="nav-link-box">
+              <a class="nav-link" id="about-link" href="/about.html">About</a>
+            </div>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="ultimate-section epilogue-section" id="about-container">
+        <a id="about-endpoint"></a>
+        <h2 class="ulti-section-heading">About this website</h2>
+        <div class="section-sub-container" id="about-sub-container">
+          <div class="epilogue-para">
+            <h3>Purpose</h3>
+            <p>
+              The unprecedented rate of spreading of COVID-19 can be
+              frightening. In these tumultuous times panic and misinformation
+              can spread very quickly and make matters worse for everyone. So it
+              is important to have access not only to reliable objective data,
+              but also to visual tools which help the average citizen interpret
+              data about COVID-19 and understand its implications. <br />
+              The purpose of this webpage is to present COVID-19 statistics and
+              trends in visually comprehensive ways to assist the viewer in
+              understanding the scope of the outbreak. Even data may be
+              presented in misleading forms, so it is important to consider
+              different visual representations before drawing conclusions. This
+              website aims to give the public an additional visual perspective
+              on COVID-19 data.
+            </p>
+          </div>
+          <div class="epilogue-para">
+            <a id="sources-endpoint"></a>
+            <h3>Data</h3>
+            <p>
+              The data featured in the visualisations on this website is fetched
+              automatically from various open-source data repositories around
+              the internet, including the
+              <a href="https://www.health.gov.au/" target="_blank"
+                >Federal Department of Health</a
+              >
+              as well as state departments. A fetch request is sent to sources
+              every 3 hours, but the concurrency of sources is not guaranteed as
+              each source is updated individually. <br />
+              These sources include:
+            </p>
+            <ul class="sources-list">
+              <li>
+                <a
+                  href="https://www.health.gov.au/resources/publications/coronavirus-covid-19-at-a-glance"
+                  target="_blank"
+                  >Department of Health</a
+                >, Australian Government
+              </li>
+              <li>
+                <a href="https://systems.jhu.edu/" target="_blank"
+                  >Center for Systems Science and Engineering</a
+                >, Johns Hopkins University
+              </li>
+              <li>
+                <a
+                  href="https://data.nsw.gov.au/nsw-covid-19-data"
+                  target="_blank"
+                  >Data.NSW</a
+                >, NSW Government
+              </li>
+              <li>
+                <a
+                  href="https://www.health.nsw.gov.au/Infectious/covid-19/Pages/stats-nsw.aspx"
+                  target="_blank"
+                  >health.nsw.gov.au</a
+                >, NSW Government
+              </li>
+              <li>
+                <a href="https://ourworldindata.org/" target="_blank"
+                  >Our World In Data</a
+                >, University of Oxford, Global Change Data Lab
+              </li>
+            </ul>
+          </div>
+          <div class="epilogue-para">
+            <h3>The developer</h3>
+            <a id="contact-endpoint"></a>
+            <p>
+              Hi! I'm Gordon and I live and study in Sydney, Australia. Being
+              locked up at home during the outbreak I wanted to help out in
+              whatever way I could. With the virus spreading so rapidly and
+              figures changing by the hour it is hard to keep up with how
+              exactly the outbreak is progressing overtime. I hope this
+              regularly updated resource will help inform you about the current
+              statistics and give an overview of how the virus is spreading.
+            </p>
+          </div>
+          <div class="epilogue-para">
+            <h3>Contact</h3>
+            <div>
+              I am always open to feedback and I look forward to implementing
+              new metrics in the future. If you have any suggestions, comments
+              or enquiries please reach out to me via
+              <span style="color: rgb(156, 185, 240);">
+                temporalanalysis@gmail.com</span
+              >
+              <!-- Or leave me a message:
+              <div class="form-container">
+                <form>
+                  <label for="username">Name:</label><br />
+                  <input
+                    type="text"
+                    id="username"
+                    name="username-input"
+                    placeholder="Your name..."
+                  /><br />
+                  <label for="email">Email (optional):</label><br />
+                  <input
+                    type="text"
+                    id="email"
+                    name="email-input"
+                    placeholder="Your email..."
+                  />
+                  <label for="message">Message:</label><br />
+                  <textarea
+                    id="message"
+                    name="message-input"
+                    placeholder="Leave a message..."
+                    style="height: 140px;"
+                  ></textarea>
+                  <input type="submit" id="submit" value="Submit" />
+                </form>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="ultimate-section epilogue-section"
+        id="disclaimer-container"
+      >
+        <a id="disclaimer-endpoint"></a>
+        <h2 class="ulti-section-heading">Disclaimer</h2>
+        <div class="section-sub-container" id="disclaimer-sub-container">
+          This website is intended for educational purposes only. The
+          information provided by this website is not to be used for
+          professional epidemiological or medical purposes. The authors of this
+          website are not liable for any damages or losses due to the use of
+          this website or any information obtained from this website.
+          <br />
+          The completeness, timeliness, accuracy and reliability of the
+          information on this website cannot be guaranteed.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-description-container">
+          <p id="developer">
+            This website is not monetised and does not record your browsing
+            activity.<br />
+            Developed and maintained independently.<br />
+            Thank you for visiting covid19aus. Stay safe!
+          </p>
+          <br />
+          <a
+            rel="license"
+            href="http://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            ><img
+              alt="Creative Commons License"
+              style="border-width: 0;"
+              src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a
+          ><br />This work is licensed under a
+          <a
+            rel="license"
+            href="http://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            >Creative Commons Attribution 4.0 International License</a
+          >.<br />
+          Feel free to replicate, redistribute and adapt the contents of this
+          website with an attribution link to
+          <a href="#">covid19aus.tk</a>
+        </div>
+        <div class="footer-links-container">
+          <ul class="footer-links">
+            <li class="footer-link">
+              <a href="about.html" id="about-link-footer">About this website</a>
+            </li>
+            <li class="footer-link">
+              <a href="about.html#sources-endpoint" id="sources-link-footer"
+                >Sources</a
+              >
+            </li>
+            <li class="footer-link">
+              <a href="about.html#contact-endpoint" id="contact-link-footer"
+                >Contact</a
+              >
+            </li>
+            <li class="footer-link">
+              <a
+                href="about.html#disclaimer-endpoint"
+                id="disclaimer-link-footer"
+                >Disclaimer</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="about.js"></script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://127.0.0.1:5500/22-04-2020-covid19-aus/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Real-time COVID-19 statistics and trends in Australia. Latest reports covid19 coronavirus information, stats, graphs, charts for Sydney New South Wales, Melbourne Victoria, Queensland, South Australia, Western Australia, Northen Territory, Tasmania, ACT">
+    <meta name="robots" content="index,follow">
+    <link href="./COVID-19 AUS_files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./COVID-19 AUS_files/chartist.min.css">
+    <script src="./COVID-19 AUS_files/chartist.min.js.download"></script>
+    <script src="./COVID-19 AUS_files/Chart.min.js.download"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script> -->
+    <script src="./COVID-19 AUS_files/jquery-3.5.0.min.js.download" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <link rel="icon" href="./COVID-19 AUS_files/security_shield_protect_virus_coronavirus.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./COVID-19 AUS_files/style.css">
+
+    <title>COVID-19 AUS</title>
+  <style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <img width="50" src="./COVID-19 AUS_files/security_shield_protect_virus_coronavirus.ico" alt="logo" class="logo">
+        <h1 class="logo-title">COVID-19 Australia</h1>
+      </div>
+      <nav class="nav-container">
+        <ul class="nav-links">
+          <div class="nav-link-box">
+            <a class="nav-link" href="http://127.0.0.1:5500/22-04-2020-covid19-aus/index.html#">Statistics</a>
+          </div>
+          <div class="nav-link-box">
+            <a class="nav-link" href="http://127.0.0.1:5500/22-04-2020-covid19-aus/index.html#">Timeline</a>
+          </div>
+          <div class="nav-link-box">
+            <a class="nav-link" href="http://127.0.0.1:5500/22-04-2020-covid19-aus/index.html#">State Figures</a>
+          </div>
+          <div class="nav-link-box">
+            <a class="nav-link" href="http://127.0.0.1:5500/22-04-2020-covid19-aus/index.html#">Demographics</a>
+          </div>
+          <div class="nav-link-box"><a class="nav-link" href="http://127.0.0.1:5500/22-04-2020-covid19-aus/index.html#">About</a></div>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="date">
+        <span>Current: April 4 2020, 22:02 GMT+10</span>
+      </div>
+
+      <section class="ultimate-section">
+        <h2 class="ulti-section-heading">
+          Current Statistics
+          <!-- <span class="live">Live</span> -->
+          <span id="blinker"><img src="./COVID-19 AUS_files/fb-live-icon-cropped-trans.png" alt="LIVE" class="live"></span>
+        </h2>
+        <div class="section-sub-container">
+          <!-- <div id="stats-box">
+            <div id="total-confirmed-box">
+              <p id="total-confirmed-num">
+                6,278 <span id="new-confirmed">(+26 yesterday)</span>
+              </p>
+              <p id="total-confirmed-title">Total Confirmed Cases</p>
+            </div>
+            <div id="split-stats-box">
+              <div id="active-cases-box">
+                <p id="active-cases-num">2,892</p>
+                <p id="active-cases-title">Current Active Cases</p>
+              </div>
+              <div id="closed-cases-box">
+                <div class="a-closed-case-box">
+                  <p class="a-closed-case-num" id="total-recoveries-num">
+                    4,892
+                    <span class="a-new-closed-case-num" id="new-recoveries-num"
+                      >(+2 yesterday)</span
+                    >
+                  </p>
+                  <p class="a-closed-case-title">Total Recoveries</p>
+                </div>
+                <div class="a-closed-case-box">
+                  <p class="a-closed-case-num" id="total-recoveries-num">
+                    1,636
+                    <span class="a-new-closed-case-num" id="new-deaths-num"
+                      >(+92 yesterday)</span
+                    >
+                  </p>
+                  <p class="a-closed-case-title">Total Deaths</p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div id="stats-container">
+            <div id="total-confirmed-box">
+              <p id="total-confirmed-title">Total Confirmed Cases</p>
+              <p id="total-confirmed-num">
+                6,278 <span id="new-confirmed">(+26 yesterday)</span>
+              </p>
+            </div>
+            <div id="active-cases-box">
+              <p id="active-cases-title">Current Active Cases</p>
+              <p id="active-cases-num">2,892</p>
+            </div>
+            <div id="closed-cases-box">
+              <div class="a-closed-case-box">
+                <p class="a-closed-case-title">Total Recoveries</p>
+                <p class="a-closed-case-num" id="total-recoveries-num">
+                  4,892
+                  <span class="a-new-closed-case-num" id="new-recoveries-num">(+2 yesterday)</span>
+                </p>
+              </div>
+              <div class="a-closed-case-box">
+                <p class="a-closed-case-title">Total Deaths</p>
+                <p class="a-closed-case-num" id="total-recoveries-num">
+                  1,636
+                  <span class="a-new-closed-case-num" id="new-deaths-num">(+92 yesterday)</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="charts0-1-container">
+            <div id="chart1-container"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="time-series-total-confirmed" width="549" height="274" class="chartjs-render-monitor" style="display: block; height: 183px; width: 366px;"></canvas>
+            </div>
+            <div id="chart0-container"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="pie-chart-current-stats" width="379" height="253" style="display: block; height: 169px; width: 253px;" class="chartjs-render-monitor"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ultimate-section">
+        <h2 class="ulti-section-heading">Timeline</h2>
+        <div class="section-sub-container" id="timeline-sub-container">
+          <div class="chart-sub-container" id="chart2-container">
+            <canvas id="time-series-split-stats"></canvas>
+          </div>
+          <div class="chart-sub-container" id="chart3-container">
+            <canvas id="time-series-growth-factor"></canvas>
+          </div>
+          <!-- <div class="chart-sub-container" id="chart4-container">
+            <canvas id="time-series-tests-bar"></canvas>
+          </div> -->
+        </div>
+      </section>
+
+      <section class="ultimate-section" id="state-figures">
+        <h2 class="ulti-section-heading">State Figures</h2>
+        <div class="section-sub-container" id="state-sub-container">
+          <table class="blueTable">
+            <thead>
+            <tr>
+            <th>State</th>
+            <th>Total Cases</th>
+            <th>Recovered</th>
+            <th>Deaths</th>
+            <th>head6</th>
+            <th>head7</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>ACT</td><td id="ACT-confirmed-cases"></td><td id="ACT-recoveries"></td><td id="ACT-deaths"></td><td>cell5_1</td><td>cell6_1</td></tr>
+            <tr>
+            <td>NSW</td><td id="NSW-confirmed-cases"></td><td id="NSW-recoveries"></td><td id="NSW-deaths"></td><td>cell5_2</td><td>cell6_2</td></tr>
+            <tr>
+            <td>NT</td><td id="NT-confirmed-cases"></td><td id="NT-recoveries"></td><td id="NT-deaths"></td><td>cell5_3</td><td>cell6_3</td></tr>
+            <tr>
+            <td>QLD</td><td id="QLD-confirmed-cases"></td><td id="QLD-recoveries"></td><td id="QLD-deaths"></td><td>cell5_4</td><td>cell6_4</td></tr>
+            <tr>
+            <td>SA</td><td id="SA-confirmed-cases"></td><td id="SA-recoveries"></td><td id="SA-deaths"></td><td>cell5_5</td><td>cell6_5</td></tr>
+            <tr>
+            <td>TAS</td><td id="TAS-confirmed-cases"></td><td id="TAS-recoveries"></td><td id="TAS-deaths"></td><td>cell5_6</td><td>cell6_6</td></tr>
+            <tr>
+            <td>VIC</td><td id="VIC-confirmed-cases"></td><td id="VIC-recoveries"></td><td id="VIC-deaths"></td><td>cell5_7</td><td>cell6_7</td></tr>
+            <tr>
+            <td>WA</td><td id="WA-confirmed-cases"></td><td id="WA-recoveries"></td><td id="WA-deaths"></td><td>cell5_8</td><td>cell6_8</td></tr>
+            <tr>
+            <td>National</td><td id="national-confirmed-cases"></td><td id="national-recoveries"></td><td id="national-deaths"></td><td>cell5_9</td><td>cell6_9</td></tr>
+            </tbody>
+            
+            </table>
+        </div>
+      </section>
+
+      <section class="ultimate-section" id="demographics">
+        <h2 class="ulti-section-heading">Demographics</h2>
+      </section>
+    </main>
+
+    <script src="./COVID-19 AUS_files/index.js.download"></script>
+  <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>

@@ -1,0 +1,276 @@
+@media (max-width: 810px) {
+  .header-container {
+    width: 98%;
+  }
+  .logo-container {
+    min-width: 210px;
+  }
+  .logo {
+    width: 2.1rem; /*Smaller than height of header*/
+    height: 2.1rem; /*Smaller than height of header*/
+  }
+  .logo-title {
+    font-size: 1rem;
+    text-emphasis: none;
+    color: rgb(228, 236, 245);
+    margin-left: 8px; /*To separate from logo*/
+  }
+  .nav-container {
+    width: 30%;
+  }
+  .nav-links {
+    justify-content: space-evenly;
+    font-size: 0.7rem;
+  }
+  #overview-link {
+    display: none;
+  }
+  #timeline-link {
+    display: none;
+  }
+  #states-link {
+    display: none;
+  }
+  #origins-link {
+    display: none;
+  }
+  #demographics-link {
+    display: none;
+  }
+
+  .blinker {
+  }
+
+  .live {
+    width: 32px;
+    vertical-align: bottom;
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .date-box {
+    font-size: 0.8rem;
+    margin-bottom: -2px;
+  }
+
+  main {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+  .ulti-section-heading {
+    font-size: 1.4rem;
+    margin-left: 1.1rem;
+  }
+
+  .section-sub-container {
+    padding: 1.4rem 1.1rem;
+    border-radius: 8px;
+  }
+
+  #total-confirmed-box {
+    margin-right: 0px;
+    padding-left: 5px;
+    width: 35%;
+  }
+  #total-confirmed-title {
+    font-size: 1.2rem;
+  }
+  #total-confirmed-num {
+    font-size: 1.5rem;
+  }
+  #new-confirmed-sentence {
+    font-size: 0.8rem;
+  }
+
+  #total-active-box {
+    margin-right: 0px;
+    padding-left: 5px;
+    width: 35%;
+  }
+  #total-active-title {
+    font-size: 1.2rem;
+  }
+  #total-active-num {
+    font-size: 1.5rem;
+  }
+  #new-active-sentence {
+    font-size: 0.8rem;
+  }
+
+  #closed-cases-box {
+    padding-left: 5px;
+    width: 30%;
+  }
+
+  .a-closed-case-box + .a-closed-case-box {
+    margin-top: 1rem;
+  }
+  .a-closed-case-box {
+  }
+  .a-closed-case-title {
+    font-size: 0.9rem;
+  }
+  .a-closed-case-num {
+    font-size: 1.2rem;
+    color: rgba(234, 238, 241, 1);
+  }
+  .a-new-closed-case-sentence {
+    font-size: 0.7rem;
+  }
+
+  .chart-description-container {
+    flex-direction: column;
+  }
+
+  .chart-container {
+    width: 100%;
+    height: 200px;
+  }
+  .description-container {
+    width: 100%;
+  }
+
+  .chart-heading {
+    font-size: 1.1rem;
+  }
+
+  #chart2-container {
+  }
+  #time-series-split-stats {
+  }
+
+  #chart3-container {
+  }
+  #time-series-growth-factor {
+  }
+
+  #chart4-container {
+  }
+  #time-series-fatality-rate {
+  }
+
+  table.blueTable {
+  }
+  table.blueTable td,
+  table.blueTable th {
+    padding: 5px 3px;
+  }
+
+  table.blueTable thead {
+  }
+  table.blueTable thead th {
+    font-size: 1rem;
+  }
+  table.blueTable tbody td {
+    font-size: 1rem;
+  }
+  table.blueTable tfoot td {
+    font-size: 1rem;
+  }
+
+  table.blueTable tr:nth-child(even) {
+  }
+  table.blueTable th:first-child {
+  }
+  table.blueTable td:first-child {
+  }
+
+  .state .new {
+    font-size: 0.7rem;
+    /* color: deepskyblue; */
+  }
+  .national .new {
+    font-size: 0.77rem;
+  }
+
+  #demographics-sub-container {
+  }
+
+  .description-container {
+    font-size: 1.15rem;
+  }
+
+  #table1-description-container {
+  }
+
+  .map-container {
+    width: 100%;
+  }
+
+  #geo-distribution-map {
+    height: 330px;
+  }
+
+  #charts0-1-container {
+    flex-direction: column;
+  }
+  #chart0-container {
+    width: 70%;
+    align-self: center;
+    margin-bottom: 20px;
+  }
+
+  #chart1-container {
+    width: 100%;
+    height: 200px;
+  }
+
+  #chart6-container {
+    height: 340px;
+  }
+
+  footer {
+  }
+
+  .footer-container {
+    width: 98%;
+  }
+
+  .footer-description-container {
+  }
+
+  .footer-links-container {
+    margin-right: 0;
+  }
+  .footer-links {
+  }
+
+  .epilogue-section {
+    width: 100%;
+    font-size: 1rem;
+  }
+  .epilogue-para {
+  }
+
+  #about-container {
+  }
+
+  .form-container {
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input[type="text"],
+  textarea {
+  }
+
+  input[type="submit"] {
+  }
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type="submit"]:hover {
+  }
+
+  .sources-list {
+    /* background-color: chartreuse; */
+    font-size: 0.8rem;
+    padding: 8px;
+    margin-left: 16px;
+  }
+
+  #disclaimer-sub-container {
+    font-size: 0.95rem;
+  }
+}

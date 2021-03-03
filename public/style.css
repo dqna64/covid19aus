@@ -1,0 +1,504 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: rgb(194, 205, 214);
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background: rgb(29, 29, 29);
+}
+
+header {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(13, 79, 109),
+    rgb(25, 48, 110)
+  );
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1300px;
+  width: 90%;
+  height: 3.5rem;
+  /* background-color: rgb(40, 97, 150); */
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logo-container {
+  /* background-color: magenta; */
+  display: flex;
+  /* justify-content: space-between; */
+  /* margin-left: 5vw; */
+  min-width: 285px;
+  text-decoration: none;
+}
+.logo {
+  /* margin: auto auto auto 0; */
+  width: 2.2rem; /*Smaller than height of header*/
+  height: 2.2rem; /*Smaller than height of header*/
+  /* width: 6vh;
+  height: 6vh; */
+}
+.logo-title {
+  font-size: 1.4rem;
+  text-emphasis: none;
+  color: rgb(228, 236, 245);
+  margin-left: 13px; /*To separate from logo*/
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.nav-container {
+  /* background-color: mediumaquamarine; */
+  /* flex: 1.8; */
+  /* margin-left: 10px; */
+  /* margin-right: 5vw; */
+  width: 60%;
+}
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+.nav-link {
+  color: #dce3f3;
+  font-size: 1rem;
+  text-decoration: none;
+}
+.nav-link:hover {
+  color: rgb(169, 223, 248);
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  /* width: 100%; */
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+/* .sticky + .content {
+  padding-top: 60px;
+} */
+
+.blinker {
+}
+
+.live {
+  animation: live-blinker 1800ms linear 800ms infinite;
+  width: 45px;
+  vertical-align: bottom;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  color: red;
+  filter: saturate(300%) brightness(100%) hue-rotate(0deg);
+}
+@keyframes live-blinker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.date-box {
+  /* background-color: salmon; */
+  font-size: 0.9rem;
+  text-align: right;
+  margin-top: 5px;
+  margin-bottom: -24px;
+}
+
+main {
+  /* margin-top: 0; */
+  max-width: 1300px;
+  width: 90%;
+  margin: 0 auto;
+  /* background-color: mediumblue; */
+}
+
+.ultimate-section {
+  /* background-color: darkgrey; */
+  margin-bottom: 10px;
+  /* display: block;
+  position: relative;
+  top: 3.5rem; */
+  /* Height of header container */
+  /* visibility: hidden; */
+  /* position: relative;
+  top: 3.5rem; */
+}
+
+.ulti-section-heading {
+  font-size: 2.25rem;
+  background: -webkit-linear-gradient(rgb(172, 209, 247), rgb(158, 169, 184));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#overview-container {
+  padding-top: 3.5rem;
+  /* position: absolute; */
+  /* top: 0rem; */
+}
+
+.section-sub-container {
+  /* background-color: rgb(40, 97, 150); */
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(17, 124, 151),
+    rgb(30, 46, 99)
+  );
+  padding: 36px 50px 36px 50px;
+  border-radius: 12px;
+  display: block;
+}
+
+#stats-container {
+  /* background-color: aquamarine; */
+  margin-bottom: 25px;
+  width: 100%;
+  display: flex;
+  /* height: 150px; */
+  justify-content: space-between;
+}
+
+#total-confirmed-box {
+  /* background-color: dodgerblue; */
+  margin-right: 10px;
+  padding-left: 20px;
+  border-left: 3px solid rgb(26, 45, 80);
+  width: 40%;
+}
+#total-confirmed-title {
+  font-size: 2rem;
+}
+#total-confirmed-num {
+  font-size: 4rem;
+  color: rgba(234, 238, 241, 1);
+}
+#new-confirmed-sentence {
+  font-size: 1.5rem;
+  color: rgba(188, 223, 245, 1);
+}
+
+#total-active-box {
+  /* background-color: darkkhaki; */
+  margin-right: 10px;
+  padding-left: 20px;
+  border-left: 3px solid rgb(26, 45, 80);
+
+  height: 100%;
+  width: 30%;
+  align-self: baseline;
+}
+#total-active-title {
+  font-size: 1.5rem;
+}
+#total-active-num {
+  font-size: 2.5rem;
+  color: rgba(234, 238, 241, 1);
+}
+#new-active-sentence {
+  font-size: 1.1rem;
+  color: rgba(188, 223, 245, 1);
+}
+
+#closed-cases-box {
+  /* background-color: darkorange; */
+  padding-left: 20px;
+  border-left: 3px solid rgb(26, 45, 80);
+  width: 30%;
+}
+
+.a-closed-case-box + .a-closed-case-box {
+  margin-top: 1rem;
+}
+.a-closed-case-box {
+  /* background-color: lawngreen; */
+}
+.a-closed-case-num {
+  font-size: 1.75rem;
+  color: rgba(234, 238, 241, 1);
+}
+.a-closed-case-title {
+  font-size: 1.2rem;
+}
+.a-new-closed-case-sentence {
+  font-size: 0.9rem;
+}
+
+#new-recovered-sentence {
+  color: rgba(188, 245, 224, 1);
+}
+
+#new-deaths-sentence {
+  color: rgba(245, 188, 188, 1);
+}
+
+#timeline-sub-container {
+}
+
+#charts0-1-container {
+  /* background-color: darkgoldenrod; */
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+  /* height: 330px; */
+}
+
+#chart0-container {
+  /* background-color: rgb(15, 141, 141); */
+  width: 40%;
+  vertical-align: top;
+}
+#pie-chart-current-stats {
+  /* background-color: hotpink; */
+}
+
+#chart1-container {
+  width: 58%;
+  height: 280px;
+  /* background-color: darkgrey; */
+}
+#time-series-total-confirmed {
+}
+
+.chart-description-container {
+  /* background-color: darkorange; */
+  margin-bottom: 25px;
+  display: flex;
+}
+
+.chart-container {
+  /* background-color: crimson; */
+  width: 60%;
+  height: 300px;
+  order: 1;
+}
+
+.description-container {
+  /* background-color: blueviolet; */
+  padding: 20px 25px;
+  width: 38%;
+  order: 2;
+  /* flex-grow: 1;
+  flex-basis: 35%; */
+}
+
+.chart-description-container + graph-heading {
+  padding-bottom: 100px;
+  background-color: deeppink;
+}
+
+.chart-heading {
+  font-size: 1.75rem;
+  padding-bottom: 6px;
+}
+
+#chart2-container {
+  display: inline-block;
+  justify-self: left;
+}
+#time-series-split-stats {
+}
+
+#chart3-container {
+  display: inline-block;
+  justify-self: left;
+}
+#time-series-growth-factor {
+}
+
+#chart4-container {
+  display: inline-block;
+  justify-self: left;
+}
+#time-series-fatality-rate {
+}
+
+table.blueTable {
+  border: 0px solid #1c78a4;
+  /* background-color: #eeeeee; */
+  width: 100%;
+  text-align: right;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+table.blueTable td,
+table.blueTable th {
+  padding: 8px 5px;
+}
+
+table.blueTable thead {
+  background: #424247;
+  border-bottom: 5px solid #2d2f38;
+}
+table.blueTable thead th {
+  font-size: 1.25rem;
+  /* font-weight: bold; */
+  color: #dddddd;
+  text-align: right;
+}
+table.blueTable tbody td {
+  font-size: 1.05rem;
+  color: #d1d1d1;
+  /* font-weight: bold; */
+}
+table.blueTable tfoot td {
+  font-size: 1.05rem;
+  color: #d1d1d1;
+  font-weight: bold;
+}
+
+table.blueTable tr:nth-child(even) {
+  background: rgba(163, 163, 163, 0.18);
+}
+table.blueTable th:first-child {
+  text-align: center;
+}
+table.blueTable td:first-child {
+  text-align: center;
+}
+
+.state .new {
+  font-size: 0.81rem;
+  /* color: deepskyblue; */
+}
+.national .new {
+  font-size: 0.875rem;
+}
+
+#demographics-sub-container {
+}
+
+.description-container {
+  font-size: 1.15rem;
+}
+
+#table1-description-container {
+  font-size: 0.6rem;
+  padding-top: 10px;
+  text-align: right;
+}
+
+.map-container {
+  /* background-color: blueviolet; */
+  width: 65%;
+}
+
+#geo-distribution-map {
+  height: 350px;
+}
+
+#chart6-container {
+  /* background-color: rgb(131, 18, 74); */
+  /* height: 380px; */
+}
+
+footer {
+  /* background-color: rgb(99, 110, 87); */
+}
+
+.footer-container {
+  /* background-color: lightcoral; */
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.footer-description-container {
+  /* background-color: rgb(75, 10, 10); */
+  padding: 1rem;
+}
+
+.footer-links-container {
+  /* background-color: rgb(11, 41, 82); */
+  padding: 1rem;
+  /* margin-right: 90px; */
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  line-height: 1.6rem;
+  text-align: right;
+}
+.footer-link:hover {
+  color: rgb(52, 241, 241);
+}
+
+.epilogue-section {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 1.3rem;
+}
+.epilogue-para {
+  margin-bottom: 30px;
+}
+
+#about-container {
+  padding-top: 3.5rem;
+}
+
+/* Add a background color and some padding around the form */
+.form-container {
+  /* border-radius: 5px; */
+  /* background-color: #f2f2f2; */
+  padding: 20px;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+input[type="text"],
+textarea {
+  width: 100%; /* Full width */
+  padding: 9px; /* Some padding */
+  border: 1px solid rgb(196, 242, 248);
+  border-radius: 4px; /* Rounded borders */
+  background-color: rgb(29, 29, 29);
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 4px; /* Add a top margin */
+  margin-bottom: 8px; /* Bottom margin */
+  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+/* Style the submit button with a specific background color etc */
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* When moving the mouse over the submit button, add a darker green color */
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.sources-list {
+  /* background-color: chartreuse; */
+  font-size: 1.1rem;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+#disclaimer-sub-container {
+  font-size: 0.95rem;
+}

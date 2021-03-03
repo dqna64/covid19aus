@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="Real-time COVID-19 statistics and trends in Australia. Latest reports covid19 coronavirus information, stats, graphs, charts for Sydney New South Wales, Melbourne Victoria, Queensland, South Australia, Western Australia, Northen Territory, Tasmania, ACT"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
+    />
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""
+    ></script>
+    <link
+      href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+    <link
+      rel="icon"
+      href="images/security_shield_protect_virus_coronavirus.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style-small.css" />
+
+    <title>
+      COVID-19 Australia: Real-time coronavirus statistics and trends
+    </title>
+  </head>
+  <body>
+    <header class="sticky">
+      <div class="header-container">
+        <a class="logo-container">
+          <img
+            width="50"
+            src="images/security_shield_protect_virus_coronavirus.ico"
+            alt="logo"
+            class="logo"
+          />
+          <h1 class="logo-title">COVID-19 Australia</h1>
+        </a>
+        <nav class="nav-container">
+          <ul class="nav-links">
+            <div class="nav-link-box">
+              <a class="nav-link" id="overview-link" href="#">Overview</a>
+            </div>
+            <div class="nav-link-box">
+              <a class="nav-link" id="timeline-link" href="#">Timeline</a>
+            </div>
+            <div class="nav-link-box">
+              <a class="nav-link" id="states-link" href="#">States</a>
+            </div>
+            <div class="nav-link-box">
+              <a class="nav-link" id="origins-link" href="#">Origins</a>
+            </div>
+            <div class="nav-link-box">
+              <a class="nav-link" id="demographics-link" href="#"
+                >Demographics</a
+              >
+            </div>
+            <div class="nav-link-box">
+              <a class="nav-link" id="about-link" href="/about.html">About</a>
+            </div>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="ultimate-section" id="overview-container">
+        <div class="date-box">
+          <span id="date-sentence">Local: <span class="date">-</span></span>
+        </div>
+        <h2 class="ulti-section-heading">
+          Current Statistics - National
+          <!-- <span class="live">Live</span> -->
+          <span id="blinker"
+            ><img
+              src="images/fb-live-icon-cropped-trans.png"
+              alt="LIVE"
+              class="live"
+          /></span>
+        </h2>
+        <div class="section-sub-container">
+          <div id="stats-container">
+            <div id="total-confirmed-box">
+              <p id="total-confirmed-title">Total Confirmed</p>
+              <p id="confirmed-figures">
+                <span id="total-confirmed-num">-</span>
+              </p>
+              <p>
+                <span id="new-confirmed-sentence"></span>
+              </p>
+            </div>
+            <div id="total-active-box">
+              <p id="total-active-title">Current Active</p>
+              <p id="active-figures">
+                <span id="total-active-num">-</span>
+              </p>
+              <p>
+                <span id="new-active-sentence"></span>
+              </p>
+            </div>
+            <div id="closed-cases-box">
+              <div class="a-closed-case-box">
+                <p class="a-closed-case-title">Recovered</p>
+                <p class="a-closed-case-figures">
+                  <span class="a-closed-case-num" id="total-recovered-num"
+                    >-</span
+                  >
+                  <span
+                    class="a-new-closed-case-sentence"
+                    id="new-recovered-sentence"
+                  ></span>
+                </p>
+              </div>
+              <div class="a-closed-case-box">
+                <p class="a-closed-case-title">Deaths</p>
+                <p class="a-closed-case-figures">
+                  <span class="a-closed-case-num" id="total-deaths-num">-</span>
+                  <span
+                    class="a-new-closed-case-sentence"
+                    id="new-deaths-sentence"
+                  ></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="charts0-1-container">
+            <div id="chart0-container">
+              <canvas
+                id="pie-chart-current-stats"
+                width="380"
+                height="255"
+              ></canvas>
+            </div>
+            <div id="chart1-container">
+              <canvas id="time-series-total-confirmed"></canvas>
+            </div>
+          </div>
+          <div id="table1-description-container">
+            <div>
+              Data complete to: <span id="lastDataDate">-</span><br />
+              Data source:
+              <a href="https://coronavirus.jhu.edu/news" target="_blank"
+                >CSSE, Johns Hopkins University</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ultimate-section" id="timeline-container">
+        <h2 class="ulti-section-heading">Timeline</h2>
+        <div class="section-sub-container" id="timeline-sub-container">
+          <h3 class="chart-heading">Total Confirmed Cases</h3>
+          <div class="chart-description-container">
+            <div class="chart-container" id="chart2-container">
+              <canvas id="time-series-split-stats"></canvas>
+            </div>
+            <div class="description-container">
+              <span style="font-weight: bold;"
+                >Total confirmed cases: total number of patients tested positive
+                for COVID-19 out of all tests conducted in the country*</span
+              ><br />
+              <span
+                >At any point in time this figure consists of active cases,
+                total recoveries and the death toll.</span
+              ><br />
+              <div style="font-size: 0.6rem;">
+                <br />
+                *The true number of people historically infected by COVID-19 is
+                likely much higher due to unreported cases, asymptomatic cases
+                and errors in data collection.<br />
+                Data source:
+                <a href="https://coronavirus.jhu.edu/news" target="_blank"
+                  >CSSE, Johns Hopkins University</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <h3 class="chart-heading">Growth Rate</h3>
+          <div class="chart-description-container">
+            <div class="chart-container" id="chart3-container">
+              <canvas id="time-series-growth-factor"></canvas>
+            </div>
+            <div class="description-container">
+              <span style="font-weight: bold;"
+                >Growth factor: ratio of new cases today to new cases
+                yesterday</span
+              ><br />
+              A growth factor of less than 1 means the number of new cases each
+              day is declining.<br />
+              The growth factor line shown in this graph is calculated using a
+              5-day moving average.
+              <div style="font-size: 0.6rem;">
+                <br />
+                Data source:
+                <a href="https://coronavirus.jhu.edu/news" target="_blank"
+                  >CSSE, Johns Hopkins University</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- <div class="chart-sub-container" id="chart4-container">
+            <canvas id="time-series-tests-bar"></canvas>
+          </div> -->
+        </div>
+      </section>
+
+      <section class="ultimate-section" id="states-container">
+        <h2 class="ulti-section-heading">States</h2>
+        <div class="section-sub-container" id="states-sub-container">
+          <h3 class="chart-heading">
+            State figures <span id="table1-date-heading">today</span>
+          </h3>
+          <table class="blueTable">
+            <thead>
+              <tr>
+                <th>State</th>
+                <th>Total</th>
+                <th>Active</th>
+                <th>Recovered</th>
+                <th>Deaths</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="state">
+                <td>ACT</td>
+                <td class="ACT-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="ACT-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="ACT-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="ACT-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>NSW</td>
+                <td class="NSW-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="NSW-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="NSW-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="NSW-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>NT</td>
+                <td class="NT-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="NT-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="NT-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="NT-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>QLD</td>
+                <td class="QLD-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="QLD-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="QLD-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="QLD-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>SA</td>
+                <td class="SA-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="SA-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="SA-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="SA-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>TAS</td>
+                <td class="TAS-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="TAS-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="TAS-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="TAS-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>VIC</td>
+                <td class="VIC-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="VIC-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="VIC-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="VIC-deaths" class="deaths" class="hi">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+              <tr class="state">
+                <td>WA</td>
+                <td class="WA-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="WA-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="WA-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="WA-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="national">
+                <td>Australia</td>
+                <td class="AUS-confirmed" class="confirmed">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="AUS-active" class="active">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="AUS-recovered" class="recovered">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+                <td class="AUS-deaths" class="deaths">
+                  <span class="new"></span> <span class="total"></span>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div id="table1-description-container">
+            <div>
+              Last updated: <span id="lastUpdated">-</span><br />
+              Data source:
+              <a href="https://coronavirus.jhu.edu/news" target="_blank"
+                >CSSE, Johns Hopkins University</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ultimate-section" id="origins-container">
+        <h2 class="ulti-section-heading">Origins</h2>
+        <div class="section-sub-container" id="origins-sub-container">
+          <h3 class="chart-heading">Confirmed Case Locations (NSW)</h3>
+          <div class="chart-description-container">
+            <div class="map-container">
+              <div id="geo-distribution-map"></div>
+            </div>
+            <div class="description-container">
+              <span
+                >Geographic points for confirmed cases shown on this map refer
+                to the suburb/postcode of infectee's usual residence*.</span
+              ><br />
+              <div style="font-size: 0.6rem;">
+                <br />
+                *Locations of usual residence of confirmed case do not
+                necessarily suggest the exact location of contraction.<br />
+                Currently this map only shows data for NSW.<br /><br />
+                Data source:
+                <a href="https://data.nsw.gov.au/data/about" target="_blank"
+                  >Data.NSW, NSW Government</a
+                >
+              </div>
+            </div>
+            <div></div>
+          </div>
+
+          <h3 class="chart-heading">Source of infection (NSW)</h3>
+          <div class="chart-description-container">
+            <div class="chart-description-container">
+              <div class="chart-container" id="chart5-container">
+                <canvas id="source-of-infection-pie"></canvas>
+              </div>
+              <div class="description-container">
+                <span
+                  >Region wherein the patient is believed to have contracted the
+                  virus.</span
+                ><br />
+                <div style="font-size: 0.6rem;">
+                  <br />
+                  Currently this chart only shows data for NSW.<br /><br />
+                  Data source:
+                  <a href="https://data.nsw.gov.au/data/about" target="_blank"
+                    >Data.NSW, NSW Government</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ultimate-section" id="demographics-container">
+        <h2 class="ulti-section-heading">Demographics</h2>
+        <div class="section-sub-container" id="demographics-sub-container">
+          <h3 class="chart-heading">Confirmed Cases by Age Group (NSW)</h3>
+          <div class="chart-description-container">
+            <div class="chart-container" id="chart6-container">
+              <canvas id="age-distribution-bar"></canvas>
+            </div>
+            <div class="description-container">
+              <span>Total number of infected patients in NSW by age group</span
+              ><br />
+              <div style="font-size: 0.6rem;">
+                <br />
+                Currently this chart only shows data for NSW.<br />
+                This dataset is no longer being regularly updated. The reduced
+                rate of new cases increases the risk that personal information
+                may be disclosed about new patients.<br /><br />
+                Data source:
+                <a href="https://data.nsw.gov.au/data/about" target="_blank"
+                  >Data.NSW, NSW Government</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-container about-page">
+        <div class="footer-description-container">
+          <p id="developer">
+            This website is not monetised and does not record your browsing
+            activity.<br />
+            Developed and maintained independently.<br />
+            Thank you for visiting covid19aus. Stay safe!
+          </p>
+          <br />
+          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"
+            ><img
+              alt="Creative Commons License"
+              style="border-width: 0;"
+              src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a
+          ><br />This work is licensed under a
+          <a
+            rel="license"
+            href="http://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            >Creative Commons Attribution 4.0 International License</a
+          >.<br />
+          Feel free to replicate, redistribute and adapt the contents of this
+          website with an attribution link to
+          <a href="#">covid19aus.tk</a>
+        </div>
+        <div class="footer-links-container">
+          <ul class="footer-links">
+            <li class="footer-link">
+              <a href="about.html" id="about-link-footer">About this website</a>
+            </li>
+            <li class="footer-link">
+              <a href="about.html#sources-endpoint" id="sources-link-footer"
+                >Sources</a
+              >
+            </li>
+            <li class="footer-link">
+              <a href="about.html#contact-endpoint" id="contact-link-footer"
+                >Contact</a
+              >
+            </li>
+            <li class="footer-link">
+              <a
+                href="about.html#disclaimer-endpoint"
+                id="disclaimer-link-footer"
+                >Disclaimer</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

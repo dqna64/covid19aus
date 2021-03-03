@@ -1,0 +1,30 @@
+{
+  "name": "covid19-aus-webapp",
+  "version": "1.0.0",
+  "description": "Web application for tracking COVID-19 statistics in Australia",
+  "main": "app.js",
+  "scripts": {
+    "auto": "nodemon app.js",
+    "dev": "node server_dev.js",
+    "prod": "node server_prod.js",
+    "start": "node server_prod.js"
+  },
+  "keywords": [
+    "COVID19",
+    "Australia"
+  ],
+  "author": "Gordon Huang",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "jquery-csv": "^1.0.11",
+    "leaflet-geosearch": "^2.7.0",
+    "mongoose": "^5.9.10",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.3"
+  }
+}
