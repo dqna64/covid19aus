@@ -71,24 +71,36 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
-run();
-
-async function run() {
-  data = await updateDataObject(database, attributes);
-  await updateDatabase(
-    timeSeriesToUpdate,
-    caseColumnsToUpdate,
-    flightEntriesToUpdate
-  ); // Update database on server launch
-
-  setInterval(() => {
-    data = await updateDataObject(database, attributes);
-  }, 3 * 60 * 60 * 1000); // Re-initialise data object every 3 hours rather than upon client request bc mongodb takes a while
-  setInterval(() => {
+setInterval(() => {
+  async function run() {
     await updateDatabase(
       timeSeriesToUpdate,
       caseColumnsToUpdate,
       flightEntriesToUpdate
-    );
-  }, 3 * 60 * 60 * 1000 + 60 * 1000); // Update database every 3hrs, offset by 1min
-}
+      );
+    data = await updateDataObject(database, attributes);
+  }
+  run();
+}, 3 * 60 * 1000);
+
+// run();
+
+// async function run() {
+//   data = await updateDataObject(database, attributes);
+//   await updateDatabase(
+//     timeSeriesToUpdate,
+//     caseColumnsToUpdate,
+//     flightEntriesToUpdate
+//   ); // Update database on server launch
+
+//   setInterval(() => {
+//     data = await updateDataObject(database, attributes);
+//   }, 3 * 60 * 60 * 1000); // Re-initialise data object every 3 hours rather than upon client request bc mongodb takes a while
+//   setInterval(() => {
+//     await updateDatabase(
+//       timeSeriesToUpdate,
+//       caseColumnsToUpdate,
+//       flightEntriesToUpdate
+//     );
+//   }, 3 * 60 * 60 * 1000 + 60 * 1000); // Update database every 3hrs, offset by 1min
+// }
