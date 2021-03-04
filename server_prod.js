@@ -81,7 +81,7 @@ setInterval(() => {
     data = await updateDataObject(database, attributes);
   }
   run();
-}, 3 * 60 * 1000);
+}, 3 * 60 * 60 * 1000);
 
 // run();
 
