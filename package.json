@@ -4,7 +4,7 @@
   "description": "Web application for tracking COVID-19 statistics in Australia",
   "main": "app.js",
   "scripts": {
-    "auto": "nodemon app.js",
+    "auto": "nodemon server_prod.js",
     "dev": "node server_dev.js",
     "prod": "node server_prod.js",
     "start": "node server_prod.js"

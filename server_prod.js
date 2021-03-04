@@ -69,9 +69,10 @@ app.get("/api/data", async (req, res) => {
     console.error(err);
     res.json({ message: "Error in sending data" });
   }
+  run(); // Just update data cache and database when someone visits (idk how to regular intervals)
 });
 
-setInterval(() => {
+// setInterval(() => {
   async function run() {
     await updateDatabase(
       timeSeriesToUpdate,
@@ -81,7 +82,7 @@ setInterval(() => {
     data = await updateDataObject(database, attributes);
   }
   run();
-}, 3 * 60 * 60 * 1000);
+// }, 60 * 1000);
 
 // run();
 
