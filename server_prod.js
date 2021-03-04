@@ -82,10 +82,10 @@ async function run() {
   ); // Update database on server launch
 
   setInterval(() => {
-    data = updateDataObject(database, attributes);
+    data = await updateDataObject(database, attributes);
   }, 3 * 60 * 60 * 1000); // Re-initialise data object every 3 hours rather than upon client request bc mongodb takes a while
   setInterval(() => {
-    updateDatabase(
+    await updateDatabase(
       timeSeriesToUpdate,
       caseColumnsToUpdate,
       flightEntriesToUpdate
