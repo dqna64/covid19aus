@@ -811,7 +811,7 @@ async function run() {
     formatDateForDisplay(lastItem(data.totalConfirmedData.dates))
   );
 
-  makeMap1(data.geoData);
+//   makeMap1(data.geoData);
 
   makeChart5(data.sourceData);
 
