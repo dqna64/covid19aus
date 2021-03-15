@@ -1,5 +1,5 @@
 // let GeoSearchControl = window.GeoSearch.GeoSearchControl;
-let OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
+// let OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
 
 const monthIdx = [
   "Jan",
