@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 // let GeoSearchControl = window.GeoSearch.GeoSearchControl;
 // let OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
+=======
+let GeoSearchControl = window.GeoSearch.GeoSearchControl;
+let OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
+>>>>>>> harddrive-backup
 
 const monthIdx = [
   "Jan",
@@ -811,7 +816,7 @@ async function run() {
     formatDateForDisplay(lastItem(data.totalConfirmedData.dates))
   );
 
-//   makeMap1(data.geoData);
+  makeMap1(data.geoData);
 
   makeChart5(data.sourceData);
 
