@@ -1,5 +1,3 @@
 # covid19aus
 
-Fully automated COVID-19 statistics reporter web app.
-
-Visit the dashboard [here](https://covid-19-aus-rww37.ondigitalocean.app/).
+Fully autonomous COVID-19 statistics dashboard application. Periodically performs web-scraping, data processing and statistical analysis on public COVID-19 data and generates intuitive visualisations.
