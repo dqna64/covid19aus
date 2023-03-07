@@ -69,39 +69,26 @@ app.get("/api/data", async (req, res) => {
     console.error(err);
     res.json({ message: "Error in sending data" });
   }
-  run(); // Just update data cache and database when someone visits (idk how to regular intervals)
 });
 
-// setInterval(() => {
-  async function run() {
-    await updateDatabase(
+run();
+
+async function run() {
+  data = await updateDataObject(database, attributes);
+  await updateDatabase(
+    timeSeriesToUpdate,
+    caseColumnsToUpdate,
+    flightEntriesToUpdate
+  ); // Update database on server launch
+
+  setInterval(() => {
+    data = updateDataObject(database, attributes);
+  }, 3 * 60 * 60 * 1000); // Re-initialise data object every 3 hours rather than upon client request bc mongodb takes a while
+  setInterval(() => {
+    updateDatabase(
       timeSeriesToUpdate,
       caseColumnsToUpdate,
       flightEntriesToUpdate
-      );
-    data = await updateDataObject(database, attributes);
-  }
-  run();
-// }, 60 * 1000);
-
-// run();
-
-// async function run() {
-//   data = await updateDataObject(database, attributes);
-//   await updateDatabase(
-//     timeSeriesToUpdate,
-//     caseColumnsToUpdate,
-//     flightEntriesToUpdate
-//   ); // Update database on server launch
-
-//   setInterval(() => {
-//     data = await updateDataObject(database, attributes);
-//   }, 3 * 60 * 60 * 1000); // Re-initialise data object every 3 hours rather than upon client request bc mongodb takes a while
-//   setInterval(() => {
-//     await updateDatabase(
-//       timeSeriesToUpdate,
-//       caseColumnsToUpdate,
-//       flightEntriesToUpdate
-//     );
-//   }, 3 * 60 * 60 * 1000 + 60 * 1000); // Update database every 3hrs, offset by 1min
-// }
+    );
+  }, 3 * 60 * 60 * 1000 + 60 * 1000); // Update database every 3hrs, offset by 1min
+}
